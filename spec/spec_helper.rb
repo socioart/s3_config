@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "s3_config"
+require "debug"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

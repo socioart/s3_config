@@ -1,9 +1,5 @@
 # S3Config
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/s3_config`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +18,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    config = YAML.load_file("#{Rails.root}/config/s3.yml").fetch(Rails.env)
+    s3_config = S3Config.load(config)
+
+    s3_config.create_client # returns instance of Aws::S3::Client
+
+    # for carrierwave
+    CarrierWave.configure do |c|
+      c.fog_credentials = s3_config.to_fog_credentials
+      c.fog_directory = config.bucket
+    end
 
 ## Development
 
